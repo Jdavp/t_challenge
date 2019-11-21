@@ -5,7 +5,7 @@ import json
 #get user basic info (picture,username, strengths)
 userinfo = []
 
-response = requests.get("https://torre.bio/api/bios/xica369")
+response = requests.get("https://torre.bio/api/bios/dfrodriguezor")
 
 userpicture = response.json()['person'].get('picture')
 
@@ -25,11 +25,41 @@ print(userinfo)
 
 
 #get user connections ids 
-usercontacts = requests.get("https://bio.torre.co/api/people/xica369/connections")
+idslists = []
+usercontacts = requests.get("https://bio.torre.co/api/people/dfrodriguezor/connections")
 
 
 contactsids = usercontacts.json()
 
 for i in range(len(contactsids)):
     cont = contactsids[i]['person']['publicId']
-    print(cont)
+    idslists.append(cont)
+
+
+# get all connections strenghts
+
+users_info = []
+
+for y in idslists:
+    all_user_strenghts = []
+    response = requests.get("https://torre.bio/api/bios/{}".format(y))
+
+    userpicture = response.json()['person'].get('picture')
+
+    username = response.json()['person'].get('name')
+
+    all_user_strenghts.append(username)
+    all_user_strenghts.append(userpicture)
+
+    userstrengths = response.json()['strengths']
+
+    for names in userstrengths:
+        strengthname = names['name']
+        all_user_strenghts.append(strengthname)
+    users_info.append(all_user_strenghts)
+
+
+# intersection beetween user all contacts strengths
+
+    for all in users_info:
+        print(intersection(userinfo,users_info))
