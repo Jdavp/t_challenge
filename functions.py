@@ -14,21 +14,18 @@ def getuserinfo(user_public_id):
 
     username = response.json()['person'].get('name')
 
-    userinfo.append(username)
-    userinfo.append(userpicture)
-
-
     userstrengths = response.json()['strengths']
 
     for names in userstrengths:
         strengthname = names['name']
         userinfo.append(strengthname)
 
-    return set(userinfo)
+    return {"name": username,
+            "photo": userpicture,
+            "strenghts":set(userinfo)
+            }
 
     
-
-
 def publics_ids_list(user_public_id):
 #get user connections public_ids 
     idslists = []
@@ -39,12 +36,8 @@ def publics_ids_list(user_public_id):
 
     for i in range(len(contactsids)):
         cont = contactsids[i]['person']['publicId']
-        idslists.append(cont)
-    print(idslists)   
+        idslists.append(cont) 
     return idslists
-
-
-
 
 
 def all_connections_strenghts(user_public_id):
@@ -54,12 +47,27 @@ def all_connections_strenghts(user_public_id):
 
     for y in listofids:
         users_info.append(getuserinfo(y))
-    print(len(users_info))
-    print(users_info)
     return users_info
 
 #
 
-print(type(getuserinfo('dfrodriguezor')))
+def intersection_of_strenghts(user_public_id):
+    finalintersection = []
+    main_user = getuserinfo(user_public_id)
+    all_strengths = all_connections_strenghts(user_public_id)
 
-print(type(all_connections_strenghts('dfrodriguezor')))
+    for intersection in all_strengths:
+        x = main_user["strenghts"].intersection(intersection["strenghts"])
+        finalintersection.append({
+            "name": intersection["name"],
+            "photo": intersection["photo"],
+            "strenghts": x,
+            "numberofstreghts": len(x)
+        })
+
+    print(finalintersection)
+    return finalintersection
+
+   
+
+intersection_of_strenghts('dfrodriguezor')
