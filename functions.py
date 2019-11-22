@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 import requests
 import json
-
+from concurrent.futures import ThreadPoolExecutor
 
 def getuserinfo(user_public_id):
     #get user basic info (picture,username, strengths)
@@ -22,12 +22,12 @@ def getuserinfo(user_public_id):
 
     return {"name": username,
             "photo": userpicture,
-            "strenghts":set(userinfo)
+            "strengths":set(userinfo)
             }
 
     
 def publics_ids_list(user_public_id):
-#get user connections public_ids 
+    #get user connections public_ids 
     idslists = []
     usercontacts = requests.get("https://bio.torre.co/api/people/{}/connections".format(user_public_id))
 
@@ -40,34 +40,36 @@ def publics_ids_list(user_public_id):
     return idslists
 
 
-def all_connections_strenghts(user_public_id):
-# get all connections strenghts
+def all_connections_info(user_public_id):
+    #get all connections strengths
     listofids = publics_ids_list(user_public_id)
     users_info = []
 
-    for y in listofids:
-        users_info.append(getuserinfo(y))
+    with ThreadPoolExecutor(max_workers=4) as executor:
+        users_info = executor.map(getuserinfo, listofids)
+    
     return users_info
 
-#
 
-def intersection_of_strenghts(user_public_id):
+def intersection_of_strengths(user_public_id):
+    '''functions to return the dictionary after intersection main user strengths and
+    contacts user strengths'''
+
     finalintersection = []
     main_user = getuserinfo(user_public_id)
-    all_strengths = all_connections_strenghts(user_public_id)
+    all_strengths = all_connections_info(user_public_id)
 
     for intersection in all_strengths:
-        x = main_user["strenghts"].intersection(intersection["strenghts"])
+        x = main_user["strengths"].intersection(intersection["strengths"])
         finalintersection.append({
             "name": intersection["name"],
             "photo": intersection["photo"],
             "strenghts": x,
-            "numberofstreghts": len(x)
+            "numberofstregths": len(x)
         })
 
-    print(finalintersection)
+    print (finalintersection)
     return finalintersection
 
    
-
-intersection_of_strenghts('dfrodriguezor')
+intersection_of_strengths('dfrodriguezor')
