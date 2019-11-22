@@ -45,7 +45,7 @@ def all_connections_info(user_public_id):
     listofids = publics_ids_list(user_public_id)
     users_info = []
 
-    with ThreadPoolExecutor(max_workers=4) as executor:
+    with ThreadPoolExecutor(max_workers=8) as executor:
         users_info = executor.map(getuserinfo, listofids)
     
     return users_info
