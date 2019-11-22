@@ -2,13 +2,16 @@
 import requests
 import json
 from concurrent.futures import ThreadPoolExecutor
+import collections
+
 
 def getuserinfo(user_public_id):
-    #get user basic info (picture,username, strengths)
+    # get user basic info (picture,username, strengths)
 
     userinfo = []
 
-    response = requests.get("https://torre.bio/api/bios/{}".format(user_public_id))
+    response = requests.get("https://torre.bio/api/bios/{}"
+                            .format(user_public_id))
 
     userpicture = response.json()['person'].get('picture')
 
@@ -22,38 +25,36 @@ def getuserinfo(user_public_id):
 
     return {"name": username,
             "photo": userpicture,
-            "strengths":set(userinfo)
+            "strengths": set(userinfo)
             }
 
-    
+
 def publics_ids_list(user_public_id):
-    #get user connections public_ids 
+    # get user connections public_ids
     idslists = []
-    usercontacts = requests.get("https://bio.torre.co/api/people/{}/connections".format(user_public_id))
-
-
+    usercontacts = requests.get("https://bio.torre.co/api/people/{}/connections"
+                                .format(user_public_id))
     contactsids = usercontacts.json()
 
     for i in range(len(contactsids)):
         cont = contactsids[i]['person']['publicId']
-        idslists.append(cont) 
+        idslists.append(cont)
     return idslists
 
 
 def all_connections_info(user_public_id):
-    #get all connections strengths
+    # get all connections strengths
     listofids = publics_ids_list(user_public_id)
     users_info = []
 
     with ThreadPoolExecutor(max_workers=8) as executor:
         users_info = executor.map(getuserinfo, listofids)
-    
     return users_info
 
 
 def intersection_of_strengths(user_public_id):
-    '''functions to return the dictionary after intersection main user strengths and
-    contacts user strengths'''
+    '''functions to return the dictionary after intersection main
+        user strengths and contacts user strengths'''
 
     finalintersection = []
     main_user = getuserinfo(user_public_id)
@@ -67,9 +68,8 @@ def intersection_of_strengths(user_public_id):
             "strenghts": x,
             "numberofstregths": len(x)
         })
+    sortbymatchsofstrengths = sorted(finalintersect, key=lambda i: i['numberofstregths'], reverse=True)
+    print(sortbymatchsofstrengths)
+    return sortbymatchsofstrengths
 
-    print (finalintersection)
-    return finalintersection
-
-   
 intersection_of_strengths('dfrodriguezor')
