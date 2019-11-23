@@ -1,4 +1,3 @@
-BFabric3==1.14.post1
 Flask==1.1.1
 Flask-Cors==3.0.8
 Jinja2==2.10.1
