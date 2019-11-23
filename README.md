@@ -6,10 +6,10 @@ New feature for torre hiring networking page, in the website you can declare you
 This project is interpreted/tested on Ubuntu 14.04 LTS using python3 (version 3.8.0)
 
 ## Installation
-* Clone this repository: `git clone "https://github.com/alexaorrico/AirBnB_clone.git"`
-* Access AirBnb directory: `cd AirBnB_clone`
-* Run hbnb(interactively): `./console` and enter command
-* Run hbnb(non-interactively): `echo "<command>" | ./console.py`
+* Clone this repository: `git clone "https://github.com/Jdavp/torre_challenge.git"`
+* Access AirBnb directory: `cd torre_challenge`
+* Run index.py: verify on your localhost:5000
+* enjoy
 
 ## File Descriptions
 * `index.py` - main file start flask server and set endpoints 
