@@ -23,7 +23,7 @@ $(document).ready(function () {
               for (let i = 0; i < data.length; i++) {
                 content += '<div class="card col-4">'
                 content += '<div class="card-body" >'
-                content += '<img src="' + data[i].photo + '" style="height:14%">'
+                content += '<img src="' + data[i].photo + '" style="height:14%" width="100%" max-width="600px" >'
                 content += '<h4 class="card-title">' + data[i].name + '</h4>'
                 content += '<h6 class="text-muted card-subtitle mb-2">' +data[i].id + '</h6>'
                 content += '<p class="card-text">' +data[i].strengths + '</p>'
