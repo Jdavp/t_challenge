@@ -1,20 +1,41 @@
 <!DOCTYPE html>
+<!DOCTYPE html>
 <HTML lang="en">
-    <HEAD>
+<html>
         <TITLE>Best Match</TITLE>
-    </HEAD>
-    <BODY>
-		<form>User Public ID</form>
-		{% for key2, value2 in user.items() -%}
-			  <LI>{{ key2 }}: <B>{{ value2 }}</B></LI>
-		{%- endfor %}
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>TORRE</title>
+    <link rel="stylesheet" href="../static/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Alef">
+    <link rel="stylesheet" href="../static/assets/css/styles.css">
+    <!-- JQUERY -->
 
-		{% for key2 in matches -%}
-		<LI>{{ key2 }}</LI>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js?"></script>
 
-  {%- endfor %}
-  		<footer>
-		I Know its sound romantic!
-  		</footer>
-    </BODY>
-</HTML>
+    <!-- JS file -->
+
+    <script src="../static/scripts/load.js"></script>
+</head>
+
+<body class="text-center">
+    <h1 class="text-center border-primary" style="background-color: #b4ceee;">Torre Best Working Match</h1>
+    <input class="bg-white border rounded border-primary shadow-sm" type="text" placeholder="User public ID">
+    <button class="btn btn-primary" type="button">SEARCH</button>
+    <p>USER INFO</p>
+    <section id="userinfo">
+    </section>
+    <h2>Matches:</h2>
+    <div class="container">
+    <section id="listofmatches" class="row">
+    </section>
+    </div>
+    <script src="../static/assets/js/jquery.min.js"></script>
+    <script src="../static/assets/bootstrap/js/bootstrap.min.js"></script>
+    <footer>
+            I Know its sound romantic!
+    </footer>
+</body>
+
+</html>
