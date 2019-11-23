@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<HTML lang="en">
+    <HEAD>
+        <TITLE>Best Match</TITLE>
+    </HEAD>
+    <BODY>
+		<form>User Public ID</form>
+		{% for key2, value2 in user.items() -%}
+			  <LI>{{ key2 }}: <B>{{ value2 }}</B></LI>
+		{%- endfor %}
+
+		{% for key2 in matches -%}
+		<LI>{{ key2 }}</LI>
+
+  {%- endfor %}
+  		<footer>
+		I Know its sound romantic!
+  		</footer>
+    </BODY>
+</HTML>

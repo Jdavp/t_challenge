@@ -16,6 +16,8 @@ def getuserinfo(user_public_id):
 
     username = response.json()['person'].get('name')
 
+    ids = response.json()['person'].get('publicId')
+
     userstrengths = response.json()['strengths']
 
     for names in userstrengths:
@@ -23,6 +25,7 @@ def getuserinfo(user_public_id):
         userinfo.append(strengthname)
 
     return {"name": username,
+            "id": ids,
             "photo": userpicture,
             "strengths": userinfo
             }
@@ -63,8 +66,9 @@ def intersection_of_strengths(user_public_id):
         x = set(main_user["strengths"]).intersection(set(intersection["strengths"]))
         finalintersection.append({
             "name": intersection["name"],
+            "id": intersection["id"],
             "photo": intersection["photo"],
-            "strenghts": list(x),
+            "strengths": list(x),
             "numberofstregths": len(x)
         })
     sortbymatchsofstrengths = sorted(finalintersection, key=lambda i: i['numberofstregths'], reverse=True)
