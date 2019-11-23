@@ -1,4 +1,4 @@
-Click==7.0
+BClick==7.0
 Fabric3==1.14.post1
 Flask==1.1.1
 Flask-Cors==3.0.8
@@ -23,7 +23,6 @@ pep8==1.7.1
 protobuf==3.9.1
 pycparser==2.19
 pycurl==7.19.3
-pygobject==3.12.0
 pyparsing==2.4.2
 python-apt===0.9.3.5ubuntu3
 requests==2.2.1
