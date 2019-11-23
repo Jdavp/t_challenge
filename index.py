@@ -46,7 +46,7 @@ def handle_400(exception):
 def index():
     "Main page for Torre Test"
     #return render_template('index.html', matches=intersection_of_strengths('xica369'), user=getuserinfo('xica369'))
-    return render_template('index2.html')
+    return render_template('index.html')
 
 @app.route('/status', methods=['GET'])
 def status():
